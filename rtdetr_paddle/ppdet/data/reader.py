@@ -141,7 +141,7 @@ class BaseDataLoader(object):
                  batch_size=1,
                  shuffle=False,
                  drop_last=False,
-                 num_classes=80,
+                 num_classes=11, # 기존 80 → 11로 변경
                  collate_batch=True,
                  use_shared_memory=False,
                  **kwargs):
@@ -231,7 +231,7 @@ class TrainReader(BaseDataLoader):
                  batch_size=1,
                  shuffle=True,
                  drop_last=True,
-                 num_classes=80,
+                 num_classes=11,  # 기존 80 → 11로 변경
                  collate_batch=True,
                  **kwargs):
         super(TrainReader, self).__init__(sample_transforms, batch_transforms,
@@ -249,7 +249,7 @@ class EvalReader(BaseDataLoader):
                  batch_size=1,
                  shuffle=False,
                  drop_last=False,
-                 num_classes=80,
+                 num_classes=11,
                  **kwargs):
         super(EvalReader, self).__init__(sample_transforms, batch_transforms,
                                          batch_size, shuffle, drop_last,
@@ -266,7 +266,7 @@ class TestReader(BaseDataLoader):
                  batch_size=1,
                  shuffle=False,
                  drop_last=False,
-                 num_classes=80,
+                 num_classes=11,  # 기존 80 → 11로 변경
                  **kwargs):
         super(TestReader, self).__init__(sample_transforms, batch_transforms,
                                          batch_size, shuffle, drop_last,

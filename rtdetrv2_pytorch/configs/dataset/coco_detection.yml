@@ -2,7 +2,7 @@ task: detection
 
 evaluator:
   type: CocoEvaluator
-  iou_types: ['bbox', ]
+  iou_types: ['bbox' ]
 
 # num_classes: 365
 # remap_mscoco_category: False
@@ -10,22 +10,25 @@ evaluator:
 # num_classes: 91
 # remap_mscoco_category: False
 
-num_classes: 80
-remap_mscoco_category: True
+num_classes: 11
+remap_mscoco_category: False
 
 
 train_dataloader: 
   type: DataLoader
   dataset: 
     type: CocoDetection
-    img_folder: ./dataset/coco/train2017/
-    ann_file: ./dataset/coco/annotations/instances_train2017.json
+    img_folder: /home/a/A_2024_selfcode/RT-DETR/rtdetrv2_pytorch/dataset/train_images
+    ann_file: /home/a/A_2024_selfcode/RT-DETR/rtdetrv2_pytorch/dataset/annotations/train.json
     return_masks: False
     transforms:
       type: Compose
-      ops: ~
+      ops: 
+        - type: Resize
+          size: [800, 800]  # 모델 입력 크기에 맞게 조정
+
   shuffle: True
-  num_workers: 4
+  num_workers: 8
   drop_last: True 
   collate_fn:
     type: BatchImageCollateFuncion
@@ -35,14 +38,14 @@ val_dataloader:
   type: DataLoader
   dataset: 
     type: CocoDetection
-    img_folder: ./dataset/coco/val2017/
-    ann_file: ./dataset/coco/annotations/instances_val2017.json
+    img_folder: /home/a/A_2024_selfcode/RT-DETR/rtdetrv2_pytorch/dataset/val_images
+    ann_file: /home/a/A_2024_selfcode/RT-DETR/rtdetrv2_pytorch/dataset/annotations/val.json
     return_masks: False
     transforms:
       type: Compose
       ops: ~ 
   shuffle: False
-  num_workers: 4
+  num_workers: 8
   drop_last: False
   collate_fn:
     type: BatchImageCollateFuncion

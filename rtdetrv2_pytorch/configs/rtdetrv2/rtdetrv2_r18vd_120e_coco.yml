@@ -44,3 +44,11 @@ train_dataloader:
         epoch: 117
   collate_fn:
     scales: ~
+
+
+
+
+#추가
+finetune_exclude_pretrained_params: 
+  - rtdetr_head.cls_score.weight
+  - rtdetr_head.cls_score.bias

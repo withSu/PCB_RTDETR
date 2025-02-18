@@ -13,7 +13,12 @@ RTDETR:
   backbone: PResNet
   encoder: HybridEncoder
   decoder: RTDETRTransformerv2
-  
+
+
+RTDETRHead:
+  num_classes: 11  # <- 여기로 이동
+
+PResNet:
 
 PResNet:
   depth: 50
