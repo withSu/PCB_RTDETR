@@ -138,7 +138,15 @@ class TransformerEncoderLayer(nn.Module):
 
     @staticmethod
     def with_pos_embed(tensor, pos_embed):
+        if pos_embed is not None:
+            if pos_embed.shape[1] != tensor.shape[1]:  # 크기가 다르면 처음 한 번만 수정
+                print(f"⚠️ Size mismatch detected! Adjusting pos_embed size... ({pos_embed.shape} → {tensor.shape})")
+                pos_embed = torch.nn.functional.interpolate(
+                    pos_embed.unsqueeze(0), size=(tensor.shape[1], pos_embed.shape[2]), mode='nearest'
+                ).squeeze(0)
+            # 크기가 같으면 아무것도 출력하지 않음
         return tensor if pos_embed is None else tensor + pos_embed
+
 
     def forward(self, src, src_mask=None, pos_embed=None) -> torch.Tensor:
         residual = src
